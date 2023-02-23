@@ -1,27 +1,16 @@
-function soundClick() {
-  var audio = new Audio(); // Создаём новый элемент Audio
-  audio.src = './do.mp3'; // Указываем путь к звуку "клика"
-  audio.autoplay = true; // Автоматически запускаем
-}
+let keys = document.querySelectorAll('.key');
 
-function soundClick2() {
-  var audio = new Audio(); // Создаём новый элемент Audio
-  audio.src = './si.mp3'; // Указываем путь к звуку "клика"
-  audio.autoplay = true; // Автоматически запускаем
-}
-
-window.addEventListener('keyup', function (event) {
-  if (event.keyCode === 13) {
-    var audio = new Audio(); // Создаём новый элемент Audio
-    audio.src = './do.mp3'; // Указываем путь к звуку "клика"
-    audio.autoplay = true; // Автоматически запускаем
-  }
+keys.forEach(key => {
+ key.addEventListener('click', playNote);
 });
 
-window.addEventListener('keyup', function (event) {
-  if (event.keyCode === 16) {
-    var audio = new Audio(); // Создаём новый элемент Audio
-    audio.src = './si.mp3'; // Указываем путь к звуку "клика"
-    audio.autoplay = true; // Автоматически запускаем
-  }
-});
+function playNote(e) {
+ let key = e.target;
+ let note = document.getElementById(key.dataset.note);
+ key.classList.add('active');
+ note.currentTime = 0;
+ note.play();
+ note.addEventListener('ended',() => {
+  key.classList.remove('active');
+ });
+}
